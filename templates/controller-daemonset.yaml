@@ -10,7 +10,8 @@ metadata:
     component: "{{ .Values.controller.name }}"
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
-  name: {{ template "nginx-ingress.controller.fullname" . }}
+  #name: {{ template "nginx-ingress.controller.fullname" . }}
+  name: nginx-ingress-{{ .Values.controller.name }}-{{ .Values.controller.ingressClass }}
 spec:
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   updateStrategy:
