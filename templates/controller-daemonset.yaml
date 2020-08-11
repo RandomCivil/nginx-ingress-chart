@@ -124,16 +124,6 @@ spec:
           {{- if .Values.controller.extraEnvs }}
 {{ toYaml .Values.controller.extraEnvs | indent 12 }}
           {{- end }}
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: {{ .Values.controller.livenessProbe.port }}
-              scheme: HTTP
-            initialDelaySeconds: {{ .Values.controller.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.controller.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.controller.livenessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.controller.livenessProbe.successThreshold }}
-            failureThreshold: {{ .Values.controller.livenessProbe.failureThreshold }}
           ports:
           {{- range $key, $value := .Values.controller.containerPort }}
             - name: {{ $key }}
@@ -169,16 +159,6 @@ spec:
               hostPort: {{ $key }}
               {{- end }}
           {{- end }}
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: {{ .Values.controller.readinessProbe.port }}
-              scheme: HTTP
-            initialDelaySeconds: {{ .Values.controller.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.controller.readinessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.controller.readinessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.controller.readinessProbe.successThreshold }}
-            failureThreshold: {{ .Values.controller.readinessProbe.failureThreshold }}
 {{- if (or .Values.controller.customTemplate.configMapName .Values.controller.extraVolumeMounts .Values.controller.admissionWebhooks.enabled) }}
           volumeMounts:
 {{- end }}
